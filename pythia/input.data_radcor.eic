@@ -1,28 +1,30 @@
-pythia.ep.RadCor=2.txt  ! output file name
+'outfiles/ep_5_50_rad.out' ! output file name
 11                ! lepton beam type
-50, 5             ! proton and electron beam energy
-1000,100          ! Number of events 
-0.0001,0.99       ! xmin and xmax
-0.001,0.95        ! ymin and ymax 
-1e-09,1e5         ! Q2min and Q2max 
+50.,5.            ! proton and electron beam energy
+100000,10        ! Number of events 
+1e-07,0.99        ! xmin and xmax
+5e-03,0.95        ! ymin and ymax 
+1e-9,400          ! Q2min and Q2max 
 F2PY,1998         ! F2-Model, R-Parametrisation
 1                 ! switch for rad corrections; 0:no, 1:yes, 2:gen.lookup table 
 1                 ! Pythia-Model = 0 standard GVMD generation in Pythia-x and Q2; = 1 GVMD model with generation in y and Q2 as for radgen
 1,1               ! A-Tar and Z-Tar
 1,1               ! nuclear pdf parameter1: nucleon mass number A, charge number Z
 201               ! nuclear pdf parameter2: correction order x*100+y x= 1:LO, 2:NLO y:error set
-msel=2
-mstp(14)=30
+! PMAS(4,1)=1.27    ! charm mass
+MSEL=2
+MSTP(14)=30
 MSTP(15)=0
 MSTP(16)=1
-MSTP(17)=4 ! MSTP 17=6 is the R-rho measured as by hermes
+MSTP(17)=4 ! MSTP 17=6 is the R-rho measured as by hermes, =4 Default
 MSTP(18)=3
-MSTP(19)=4
-MSTP(20)=3 ! ----> check if hermes
+MSTP(19)=1 ! Hermes MSTP-19=1 different Q2 suppression, default = 4
+MSTP(20)=0 ! Hermes MSTP(20)=0 , default MSTP(20)=3
 MSTP(32)=8
 MSTP(38)=4
-MSTP(51)=7   ! if pdflib is linked than non pythia-pdfs are available,                         like MSTP(51)=4046 
-MSTP(52)=1   ! ---> pdflib used MSTP   52=2
+!MSTP(51)=10050 ! if pdflib is linked than non pythia-pdfs are available,                         like MSTP(51)=4046 
+MSTP(51)=10150
+MSTP(52)=2   ! ---> pdflib used MSTP   52=2
 MSTP(53)=3
 MSTP(54)=1
 MSTP(55)=5
@@ -60,10 +62,9 @@ PARP(161)=3.00
 PARP(162)=24.6
 PARP(163)=18.8
 PARP(164)=11.5
-! PARP 165/166 are linked to MSTP 17 as R_rho of HERMES is used
-! PARP(165)=0.47679
-! PARP(166)=0.67597
-PARP(165)=0.50
+PARP(165)=0.47679
+PARP(166)=0.67597 ! PARP165/166 are linked to MSTP17 as R_rho of HERMES is used
+! PARP(166)=0.5    
 ! ----------- Now come all the switches for Jetset -----------
 PARJ(1)=0.100
 PARJ(2)=0.300
@@ -119,7 +120,7 @@ CKIN(37)=0.
 CKIN(38)=-1.
 CKIN(39)=4.
 CKIN(40)=-1.
-CKIN(65)=0.        ! Min for Q^2
+CKIN(65)=1.e-09        ! Min for Q^2
 CKIN(66)=-1.       ! Max for Q^2
 CKIN(67)=0.
 CKIN(68)=-1. 
