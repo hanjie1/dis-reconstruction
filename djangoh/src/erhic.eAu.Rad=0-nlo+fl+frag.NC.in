@@ -1,0 +1,61 @@
+OUTFILENAM
+djangoh.eAu.5x100.5Mevents.1.RadCor=1
+TITLE
+DJANGOH 4.6.9 for eRHIC for Au, NLO at 5x100, Wmin=1.4
+EL-BEAM
+            5.0D0    0.0D0    -1
+PR-BEAM
+            100.0D0  0.0D0
+GSW-PARAM
+            2 0 3 1 0 0 2 1 1 1 1 
+KINEM-CUTS
+            3   0.0001D0  1.00D0  0.01D0  0.95D0  1.0D0  1D5  1.4D0
+EGAM-MIN
+            0D0
+INT-OPT-NC
+            1 0 0 0 0   0 0 0 0   
+INT-OPT-CC
+            0 0 0 0
+INT-ONLY
+            1
+INT-POINTS
+            30000
+SAM-OPT-NC
+            1 0 0 0 0  0 0 0 0
+SAM-OPT-CC
+            0 0 0 0
+NUCLEUS
+            100.0D0  197D0   79D0
+NUCL-MOD
+            4201
+STRUCTFUNC
+            0  2  10150
+POLPDF
+            0
+LHAPATH
+/direct/eic+data/LHAPDF-5.8.6/lhapdf/PDFsets
+FLONG
+            111  0.01  0.03
+ALFAS
+            1   0   0.20   0.235
+NFLAVORS
+            0   5
+IOUNITS
+            6  10  11 
+RNDM-SEEDS
+            -1 -1
+START
+            500
+SOPHIA  
+            1.5
+OUT-LEP
+            1
+FRAG
+            1
+CASCADES
+            12
+MAX-VIRT
+            5
+CONTINUE 
+
+
