@@ -3,7 +3,10 @@
 *.d
 *.pcm
 *.out
+*.dat
 *.root
+=======
+>>>>>>> 43a5d2a0a0950d3bd747c809ef7c2ac403bef89e
 
 #Directories
 #jobout
