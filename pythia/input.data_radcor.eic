@@ -120,7 +120,6 @@ CKIN(37)=0.
 CKIN(38)=-1.
 CKIN(39)=4.
 CKIN(40)=-1.
-<<<<<<< HEAD
 CKIN(65)=1.e-09        ! Min for Q^2
 CKIN(66)=-1.       ! Max for Q^2
 CKIN(67)=0.

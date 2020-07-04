@@ -13,7 +13,8 @@ setenv PATH /work/JAM/apps/DJANGOH-4.6.10/bin/:${PATH}
 setenv LHAPDF5 /work/JAM/apps/lhapdf5/lib
 setenv LD_LIBRARY_PATH /work/halla/gmp12/baraks/PYTHIA-RAD-CORR/install/lib:${LD_LIBRARY_PATH}
 setenv PATH /work/halla/gmp12/baraks/PYTHIA-RAD-CORR/install/bin:${PATH}
-setenv LHAPATH /work/JAM/apps/lhapdf5/share/lhapdf
+#setenv LHAPATH /work/JAM/apps/lhapdf5/share/lhapdf
+setenv LHAPATH /volatile/halla/gmp12/baraks/PDFsets
 
 #This is the sPHENIX version of pythiaeRHIC. It compiles but gives run-time error
 #setenv LD_LIBRARY_PATH /work/halla/gmp12/baraks/pythia6/pythiaeRHIC/install/lib:${LD_LIBRARY_PATH}

@@ -1,8 +1,8 @@
 R__LOAD_LIBRARY(libeicsmear);
 
 void PlotPID(){
-     int Ee = 5;
-     int Ep = 50;
+     int Ee = 18;
+     int Ep = 275;
      
      TFile *f1 = new TFile(Form("../outfiles/ep_%d_%d_rad.root",Ee,Ep),"READ");
      TTree *T = (TTree *)f1->Get("EICTree");
@@ -23,20 +23,20 @@ void PlotPID(){
      TLorentzVector p;
      Double_t eta,pp;
 
-     TH1F *hE[7];
-     TH1F *hPositron[7];
-     TH1F *hP[7];
-     TH1F *hGamma[7];
-     TH1F *hEmP[7];
+     TH1F *hE[8];
+     TH1F *hPositron[8];
+     TH1F *hP[8];
+     TH1F *hGamma[8];
+     TH1F *hEmP[8];
 
-     for(int ii=0;ii<7;ii++){
+     for(int ii=0;ii<8;ii++){
 	hE[ii] =new TH1F(Form("hE_%d",ii),Form("electron momentum distribution %d",ii),1000,0,50);
 	hPositron[ii] =new TH1F(Form("hPositron_%d",ii),Form("positron momentum distribution %d",ii),1000,0,50);
 	hGamma[ii] =new TH1F(Form("hGamma_%d",ii),Form("gamma momentum distribution %d",ii),1000,0,50);
 	hP[ii] =new TH1F(Form("hP_%d",ii),Form("hadron momentum distribution %d",ii),1000,0,50);
      }
 
-     Double_t eta_cut[8]={-5,-4,-3,-2,-1,0,1,5};
+     Double_t eta_cut[9]={-5,-3.5,-2,-1,0,1,2,3.5,5};
  
      for(int ii=0; ii<nentries;ii++){
 	T->GetEntry(ii);
@@ -54,8 +54,8 @@ void PlotPID(){
 	       e.SetPxPyPzE(particle->px,particle->py,particle->pz,particle->E);
 	       eta = e.Eta();
 	       pp = e.P();
-	       for(int kk=0; kk<7; kk++){
-		if(eta<eta_cut[kk+1] && eta>eta_cut[kk]) hE[kk]->Fill(pp);
+	       for(int kk=0; kk<8; kk++){
+		if(eta<=eta_cut[kk+1] && eta>eta_cut[kk]) hE[kk]->Fill(pp);
 	       }
 	    }
             if(id==-11){
@@ -63,8 +63,8 @@ void PlotPID(){
 	       positron.SetPxPyPzE(particle->px,particle->py,particle->pz,particle->E);
 	       eta = positron.Eta();
 	       pp = positron.P();
-	       for(int kk=0; kk<7; kk++){
-		if(eta<eta_cut[kk+1] && eta>eta_cut[kk]) hPositron[kk]->Fill(pp);
+	       for(int kk=0; kk<8; kk++){
+		if(eta<=eta_cut[kk+1] && eta>eta_cut[kk]) hPositron[kk]->Fill(pp);
 	       }
 	    }
             if(id==22){
@@ -72,8 +72,8 @@ void PlotPID(){
  	       gamma.SetPxPyPzE(particle->px,particle->py,particle->pz,particle->E);
 	       eta = gamma.Eta();
 	       pp = gamma.P();
-	       for(int kk=0; kk<7; kk++){
-		if(eta<eta_cut[kk+1] && eta>eta_cut[kk]) hGamma[kk]->Fill(pp);
+	       for(int kk=0; kk<8; kk++){
+		if(eta<=eta_cut[kk+1] && eta>eta_cut[kk]) hGamma[kk]->Fill(pp);
 	       }
 	    }
             if((abs(id)==211) ||( abs(id)==321) || id==2212 || id==2112){
@@ -81,8 +81,8 @@ void PlotPID(){
 	       p.SetPxPyPzE(particle->px,particle->py,particle->pz,particle->E);
 	       eta = p.Eta();
 	       pp = p.P();
-	       for(int kk=0; kk<7; kk++){
-		if(eta<eta_cut[kk+1] && eta>eta_cut[kk]) hP[kk]->Fill(pp);
+	       for(int kk=0; kk<8; kk++){
+		if(eta<=eta_cut[kk+1] && eta>eta_cut[kk]) hP[kk]->Fill(pp);
 	       }
 	    }
 	  }
@@ -91,8 +91,8 @@ void PlotPID(){
 
      gStyle->SetOptStat(0);
      TCanvas *c1 = new TCanvas("c1","c1",2000,1500);
-     c1->Divide(4,2);
-     for(int ii=0; ii<7; ii++){
+     c1->Divide(3,3);
+     for(int ii=0; ii<8; ii++){
 	c1->cd(ii+1);
 
 	hEmP[ii] = (TH1F *)hE[ii]->Clone(Form("hEmP_%d",ii));
@@ -115,34 +115,34 @@ void PlotPID(){
 	Double_t n2 = hGamma[ii]->Integral();
 	Double_t n3 = hP[ii]->Integral();
  
-	if(n1>=n2 && n1>=n3 && n1>=n4){
+	if(n1>=n2 && n1>=n3){
 	  hE[ii]->Draw();
-	  hPositron[ii]->Draw("same");
+	  //hPositron[ii]->Draw("same");
 	  hGamma[ii]->Draw("same");
 	  hP[ii]->Draw("same");
-	  hEmP[ii]->Draw("same");
+	  //hEmP[ii]->Draw("same");
 	  hE[ii]->SetTitle(";momentum (GeV);");
 	  hE[ii]->GetXaxis()->SetRangeUser(0.1,50);
         }
-	if(n2>n1 && n2>=n3 && n2>=n4){
+	if(n2>n1 && n2>=n3 ){
 	  hGamma[ii]->Draw();
 	  hE[ii]->Draw("same");
-	  hPositron[ii]->Draw("same");
+	  //hPositron[ii]->Draw("same");
 	  hP[ii]->Draw("same");
-	  hEmP[ii]->Draw("same");
+	  //hEmP[ii]->Draw("same");
 	  hGamma[ii]->SetTitle(";momentum (GeV);");
 	  hGamma[ii]->GetXaxis()->SetRangeUser(0.1,50);
         }
-	if(n3>n2 && n3>n1 && n3>=n4){
+	if(n3>n2 && n3>n1 ){
 	  hP[ii]->Draw();
 	  hE[ii]->Draw("same");
-	  hPositron[ii]->Draw("same");
+	  //hPositron[ii]->Draw("same");
 	  hGamma[ii]->Draw("same");
-	  hEmP[ii]->Draw("same");
+	  //hEmP[ii]->Draw("same");
 	  hP[ii]->SetTitle(";momentum (GeV);");
 	  hP[ii]->GetXaxis()->SetRangeUser(0.1,50);
         }
-
+/*
 	if(n4>n1 && n4>n2 && n4>n3){
 	  hPositron[ii]->Draw();
 	  hE[ii]->Draw("same");
@@ -152,18 +152,18 @@ void PlotPID(){
 	  hPositron[ii]->SetTitle(";momentum (GeV);");
 	  hPositron[ii]->GetXaxis()->SetRangeUser(0.1,50);
         }
-
+*/
 
 	TLatex tex;
 	tex.SetNDC();
 	tex.SetTextSize(0.05);
-	tex.DrawLatex(0.7,0.7,Form("%.0f<#eta<%.0f",eta_cut[ii],eta_cut[ii+1]));
+	tex.DrawLatex(0.7,0.7,Form("%.1f<#eta<%.1f",eta_cut[ii],eta_cut[ii+1]));
 
 	gPad->SetLogy();
 	gPad->SetLogx();
      }
 
-     c1->cd(8);
+     c1->cd(9);
      TLatex tex1;
      tex1.SetNDC();
      tex1.SetTextSize(0.05);
@@ -171,23 +171,25 @@ void PlotPID(){
      tex1.DrawLatex(0.2,0.65,"#color[1]{electron}");
      tex1.DrawLatex(0.2,0.5,"#color[2]{hadron (#pi^{#pm}, K^{#pm}, p, n)}");
      tex1.DrawLatex(0.2,0.35,"#color[4]{photon}");
-     tex1.DrawLatex(0.2,0.2,"#color[8]{positron}");
-     tex1.DrawLatex(0.2,0.1,"#color[6]{electron - positron}");
+     //tex1.DrawLatex(0.2,0.2,"#color[8]{positron}");
+     //tex1.DrawLatex(0.2,0.2,"#color[6]{electron - positron}");
 	
-     TH1F *hPE[7];
-     TH1F *hGammaE[7];
-     TH1F *hPositronE[7];
+     TH1F *hPE[8];
+     TH1F *hGammaE[8];
+     TH1F *hPositronE[8];
 
      TCanvas *c2 = new TCanvas("c2","c2",2000,1500);
-     c2->Divide(4,2);
-     for(int ii=0; ii<7; ii++){
+     c2->Divide(3,3);
+     for(int ii=0; ii<8; ii++){
 	c2->cd(ii+1);
 
 	hPE[ii] = (TH1F *)hP[ii]->Clone(Form("hPE_%d",ii));
-	hPE[ii]->Divide(hEmP[ii]);
+	//hPE[ii]->Divide(hEmP[ii]);
+	hPE[ii]->Divide(hE[ii]);
 
 	hGammaE[ii] = (TH1F *)hGamma[ii]->Clone(Form("hGammaE_%d",ii));
-	hGammaE[ii]->Divide(hEmP[ii]);
+	//hGammaE[ii]->Divide(hEmP[ii]);
+	hGammaE[ii]->Divide(hE[ii]);
 
 	hPositronE[ii] = (TH1F *)hPositron[ii]->Clone(Form("hPositronE_%d",ii));
 	hPositronE[ii]->Divide(hE[ii]);
@@ -220,19 +222,25 @@ void PlotPID(){
 	TLatex tex;
 	tex.SetNDC();
 	tex.SetTextSize(0.05);
-	tex.DrawLatex(0.7,0.7,Form("%.0f<#eta<%.0f",eta_cut[ii],eta_cut[ii+1]));
+	tex.DrawLatex(0.7,0.7,Form("%.1f<#eta<%.1f",eta_cut[ii],eta_cut[ii+1]));
 
 	gPad->SetLogy();
 	gPad->SetLogx();
      }
 
-     c2->cd(8);
+     c2->cd(9);
      TLatex tex2;
      tex2.SetNDC();
      tex2.SetTextSize(0.05);
      tex2.DrawLatex(0.2,0.8,Form("%d GeV * %d GeV with Radiation on",Ee,Ep));
      tex2.DrawLatex(0.2,0.65,"#color[4]{hadron/electron  (#pi^{#pm}, K^{#pm}, p, n)}");
      tex2.DrawLatex(0.2,0.5,"#color[1]{photon/electron}");
+
+     c1->Print(Form("outfiles/ep_%d_%d.pdf[",Ee,Ep));
+     c1->Print(Form("outfiles/ep_%d_%d.pdf",Ee,Ep));
+     c2->Print(Form("outfiles/ep_%d_%d.pdf",Ee,Ep));
+     c2->Print(Form("outfiles/ep_%d_%d.pdf]",Ee,Ep));
+
 /*
      TCanvas *c3 = new TCanvas("c3","c3",1500,1500);
      c3->Divide(4,2);

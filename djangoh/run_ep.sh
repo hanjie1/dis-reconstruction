@@ -30,12 +30,12 @@ echo "Making First Smeared ROOT File..."
 root -l -b -q 'make_smeared_perfect.C("djangoh.NC.Rad.20x250_evt")'
 echo "Done!!!"
 
-echo "Making Second Smeared ROOT File..."
-root -l -b -q 'make_smeared_central.C("djangoh.NC.Rad.20x250_evt")'
-echo "Done!!!"
+#echo "Making Second Smeared ROOT File..."
+#root -l -b -q 'make_smeared_central.C("djangoh.NC.Rad.20x250_evt")'
+#echo "Done!!!"
 
-echo "Making Third Smeared ROOT File..."
-root -l -b -q 'make_smeared_handbook.C("djangoh.NC.Rad.20x250_evt")'
-echo "Done!!!"
+#echo "Making Third Smeared ROOT File..."
+#root -l -b -q 'make_smeared_handbook.C("djangoh.NC.Rad.20x250_evt")'
+#echo "Done!!!"
 
 echo "-----------------------------------"
